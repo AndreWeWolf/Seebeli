@@ -159,14 +159,14 @@ ORGANISATION_ADDRESS = {"name":"Solawi Seebeli",
             "city" : "Wienacht",
             "extra" : ""}
 ORGANISATION_BANK_CONNECTION = {"PC" : "123",
-            "IBAN" : "CH123",
-            "BIC" : "BIC",
-            "NAME" : "ABS",
-            "ESR" : ""}
+            "IBAN" : "CH24 0839 0038 2424 1000 0",
+            "BIC" : "ABSOCH22",
+            "NAME" : "Alternative Bank Schweiz",
+            "ESR" : "01-9252-0"}
 SHARE_PRICE = "100"
 
 INFO_EMAIL = "info@seebeli.ch"
-SERVER_URL = "www.seebeli.org"
+SERVER_URL = "www.seebeli.ch"
 ADMINPORTAL_NAME = "my.seebeli.ch"
 ADMINPORTAL_SERVER_URL = "my.seebeli.ch"
 STYLE_SHEET = "/static/seebeli/css/customize.css"
