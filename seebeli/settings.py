@@ -169,4 +169,12 @@ INFO_EMAIL = "info@seebeli.ch"
 SERVER_URL = "www.seebeli.ch"
 ADMINPORTAL_NAME = "my.seebeli.ch"
 ADMINPORTAL_SERVER_URL = "my.seebeli.ch"
+TIME_ZONE = 'Europe/Zurich'
+CURRENCY = "CHF"
+BUSINESS_YEAR_START = {"day": 1, "month": 1}
+MEMBERSHIP_END_MONTH = 12
+BUSINESS_YEAR_CANCELATION_MONTH = 9
+ENABLE_REGISTRATION = "True"
+ENABLE_SHARES = "False"
+BYLAWS = "https://uploads.strikinglycdn.com/files/e143b0c4-7513-49a6-928c-3d466e52fabe/Statuten%20Solawi%20Seebeli%202021-04-12.pdf?id=3403441"
 STYLE_SHEET = "/static/seebeli/css/customize.css"
