@@ -86,7 +86,7 @@ USE_I18N = True
 # calendars according to the current locale.
 USE_L10N = True
 
-USE_TZ = Tru
+USE_TZ = True
 
 DATE_INPUT_FORMATS =['%d.%m.%Y',]
 
