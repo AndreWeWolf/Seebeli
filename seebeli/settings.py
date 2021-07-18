@@ -50,6 +50,7 @@ DATABASES = {
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'OPTIONS': {
             'context_processors': [
                 'django.contrib.auth.context_processors.auth',
@@ -84,6 +85,8 @@ USE_I18N = True
 # If you set this to False, Django will not format dates, numbers and
 # calendars according to the current locale.
 USE_L10N = True
+
+USE_TZ = Tru
 
 DATE_INPUT_FORMATS =['%d.%m.%Y',]
 
@@ -150,6 +153,25 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 """
      juntagrico Settings
 """
+VOCABULARY = {
+    'member': 'Mitglied',
+    'member_pl' : 'Mitglieder',
+    'assignment' : 'Arbeitseinsatz',
+    'assignment_pl' : 'Arbeitseinsätze',
+    'share' : 'Mitgliedsbeitrag',
+    'share_pl' : 'Mitgliedsbeiträge',
+    'subscription' : 'Abo',
+    'subscription_pl' : 'Abos',
+    'co_member' : 'Mitabonnent',
+    'co_member_pl' : 'Mitabonnenten',
+    'price' : 'Betriebsbeitrag',
+    'member_type' : 'Mitglied',
+    'member_type_pl' : 'Mitglieder',
+    'depot' : 'Depot',
+    'depot_pl' : 'Depots',
+    'package': 'Tasche',
+}
+
 ORGANISATION_NAME = "Solawi Seebeli"
 ORGANISATION_LONG_NAME = "Solawi Seebeli"
 ORGANISATION_ADDRESS = {"name":"Solawi Seebeli", 
@@ -163,6 +185,8 @@ ORGANISATION_BANK_CONNECTION = {"PC" : "123",
             "BIC" : "ABSOCH22",
             "NAME" : "Alternative Bank Schweiz",
             "ESR" : "01-9252-0"}
+
+ENABLE_SHARES = False
 SHARE_PRICE = "100"
 
 INFO_EMAIL = "info@seebeli.ch"
