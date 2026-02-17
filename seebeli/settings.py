@@ -12,9 +12,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('JUNTAGRICO_SECRET_KEY')
 
-DEBUG = os.environ.get("JUNTAGRICO_DEBUG", 'True')=='True'
+DEBUG = os.environ.get("JUNTAGRICO_DEBUG", 'False')=='True'
 
-ALLOWED_HOSTS = ['my.seebeli.ch','seebeli.juntagrico.science', 'localhost',]
+if not DEBUG:
+    ALLOWED_HOSTS = ['my.seebeli.ch','seebeli.juntagrico.science']
 
 
 # Application definition
@@ -27,11 +28,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
+    'seebeli',
     'juntagrico',
+    'import_export',
+    'fontawesomefree',
     'impersonate',
     'crispy_forms',
     'adminsortable2',
-    'seebeli',
+    'polymorphic',
 ]
 
 ROOT_URLCONF = 'seebeli.urls'
@@ -50,7 +54,7 @@ DATABASES = {
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.contrib.auth.context_processors.auth',
@@ -61,34 +65,26 @@ TEMPLATES = [
                 'django.template.context_processors.tz',
                 'django.template.context_processors.request',
                 'django.contrib.messages.context_processors.messages',
+                'juntagrico.context_processors.vocabulary',
             ],
-            'loaders': [
-                'django.template.loaders.filesystem.Loader',
-                'django.template.loaders.app_directories.Loader'
-            ],
-            'debug' : True
+            'debug' : DEBUG
         },
     },
 ]
 
 WSGI_APPLICATION = 'seebeli.wsgi.application'
 
-
-LANGUAGE_CODE = 'de'
-
 SITE_ID = 1
 
-# If you set this to False, Django will make some optimizations so as not
-# to load the internationalization machinery.
 USE_I18N = True
-
-# If you set this to False, Django will not format dates, numbers and
-# calendars according to the current locale.
 USE_L10N = True
 
 USE_TZ = True
+TIME_ZONE = 'Europe/Zurich'
 
+LANGUAGE_CODE = 'de'
 DATE_INPUT_FORMATS =['%d.%m.%Y',]
+
 
 AUTHENTICATION_BACKENDS = (
     'juntagrico.util.auth.AuthenticateWithEmail',
@@ -102,7 +98,8 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'impersonate.middleware.ImpersonateMiddleware'
+    'impersonate.middleware.ImpersonateMiddleware',
+    'django.contrib.sites.middleware.CurrentSiteMiddleware',
 ]
 
 EMAIL_HOST = os.environ.get('JUNTAGRICO_EMAIL_HOST')
@@ -122,7 +119,7 @@ def whitelist_email_from_env(var_env_name):
         WHITELIST_EMAILS.append(email.replace('@gmail.com', '(\+\S+)?@gmail.com'))
 
 
-if DEBUG is True:
+if DEBUG:
     for key in os.environ.keys():
         if key.startswith("JUNTAGRICO_EMAIL_WHITELISTED"):
             whitelist_email_from_env(key)
@@ -136,7 +133,7 @@ IMPERSONATE = {
     'REDIRECT_URL': '/my/profile',
 }
 
-LOGIN_REDIRECT_URL = "/my/home"
+LOGIN_REDIRECT_URL = "/"
 
 """
     File & Storage Settings
@@ -145,10 +142,25 @@ ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
 
 MEDIA_ROOT = 'media'
 
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.ManifestStaticFilesStorage",
+    },
+}
+
 """
      Crispy Settings
 """
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+
+"""
+     Import Export Settings
+"""
+IMPORT_EXPORT_EXPORT_PERMISSION_CODE = 'view'
 
 """
      juntagrico Settings
@@ -185,20 +197,22 @@ ORGANISATION_BANK_CONNECTION = {"PC" : "123",
             "BIC" : "ABSOCH22",
             "NAME" : "Alternative Bank Schweiz",
             "ESR" : "01-9252-0"}
+ORGANISATION_WEBSITE = {
+    'name': "www.seebeli.ch",
+    'url': "https://www.seebeli.ch"
+}
 
 ENABLE_SHARES = False
+ENABLE_SHARES = "False"  # TODO: fixme
 SHARE_PRICE = "100"
 
-INFO_EMAIL = "info@seebeli.ch"
-SERVER_URL = "www.seebeli.ch"
-ADMINPORTAL_NAME = "my.seebeli.ch"
-ADMINPORTAL_SERVER_URL = "my.seebeli.ch"
-TIME_ZONE = 'Europe/Zurich'
+CONTACTS = {
+    "general": "info@seebeli.ch"
+}
 CURRENCY = "CHF"
-BUSINESS_YEAR_START = {"day": 1, "month": 1}
+BUSINESS_YEAR_START = {"day": 1, "month": 2}
 MEMBERSHIP_END_MONTH = 12
 BUSINESS_YEAR_CANCELATION_MONTH = 9
-ENABLE_REGISTRATION = "True"
-ENABLE_SHARES = "False"
+ENABLE_REGISTRATION = True
 BYLAWS = "https://uploads.strikinglycdn.com/files/e143b0c4-7513-49a6-928c-3d466e52fabe/Statuten%20Solawi%20Seebeli%202021-04-12.pdf?id=3403441"
-STYLE_SHEET = "/static/seebeli/css/customize.css"
+STYLES = {'static': ['seebeli/css/customize.css']}

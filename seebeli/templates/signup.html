@@ -1,0 +1,26 @@
+{% extends "signup.html" %}
+{% load i18n %}
+{% load juntagrico.config %}
+
+{% block intro_with_shares %}
+    {% enriched_organisation "D" as v_d_enriched_organisation %}
+    {% config "share_price" as c_share_price %}
+    <p>
+        {% blocktrans trimmed with v_share=vocabulary.share v_share_pl=vocabulary.share_pl v_subscription=vocabulary.subscription %}
+            {{ v_d_enriched_organisation }} ist als Verein organisiert und bietet dir so die Möglichkeit
+            vielfältig mitzuwirken bzw. mitzubestimmen. Sei es der Abopreis, eine Erweiterung des Angebots usw.
+            Dies wollen wir u.a. über eine möglichst transparente Kommunikation oder die Möglichkeit als Mitglied
+            die Buchhaltung einzusehen erreichen.
+            Den {{ v_share_pl }} in der Höhe von CHF {{ c_share_price }} (Richtwert). Die {{ v_share_pl }} sind das
+            Kapital, das vor allem zur Finanzierung von ansonsten nicht gedeckten ökologischen Massnahmen – zum Beispiel
+            Heckenpflege – verwendet wird.
+        {% endblocktrans %}
+    </p>
+{% endblock %}
+
+{% block intro_2 %}
+    {% blocktrans trimmed with v_member_type_pl=vocabulary.member_type_pl %}
+        Die {{ v_member_type_pl }} tragen im Rahmen ihrer Motivationen, Prioritäten und
+        Möglichkeiten gemeinsam zum Gelingen des Betriebes bei.
+    {% endblocktrans %}
+{% endblock %}
