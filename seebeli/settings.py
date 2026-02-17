@@ -216,3 +216,10 @@ BUSINESS_YEAR_CANCELATION_MONTH = 9
 ENABLE_REGISTRATION = True
 BYLAWS = "https://uploads.strikinglycdn.com/files/e143b0c4-7513-49a6-928c-3d466e52fabe/Statuten%20Solawi%20Seebeli%202021-04-12.pdf?id=3403441"
 STYLES = {'static': ['seebeli/css/customize.css']}
+
+# Staging
+if os.environ.get('JUNTAGRICO_STAGING') == '1':
+    # staging URL erlauben
+    ALLOWED_HOSTS.append('seebeli-staging.juntagrico.science')
+    # E-Mails Deaktivieren
+    EMAIL_BACKEND = "django.core.mail.backends.dummy.EmailBackend"
