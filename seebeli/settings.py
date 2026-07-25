@@ -4,6 +4,8 @@ Django settings for seebeli project.
 
 import os
 
+from juntagrico import defaults
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -27,15 +29,17 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.admin',
+    'juntagrico.apps.JuntagricoAdminConfig',
     'seebeli',
     'juntagrico',
     'import_export',
-    'fontawesomefree',
     'impersonate',
     'crispy_forms',
+    'crispy_bootstrap4',
     'adminsortable2',
     'polymorphic',
+    'django_select2',
+    'djrichtextfield',
 ]
 
 ROOT_URLCONF = 'seebeli.urls'
@@ -102,14 +106,14 @@ MIDDLEWARE = [
     'django.contrib.sites.middleware.CurrentSiteMiddleware',
 ]
 
+EMAIL_BACKEND='juntagrico.backends.email.EmailBackend'
+
 EMAIL_HOST = os.environ.get('JUNTAGRICO_EMAIL_HOST')
 EMAIL_HOST_USER = os.environ.get('JUNTAGRICO_EMAIL_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('JUNTAGRICO_EMAIL_PASSWORD')
 EMAIL_PORT = int(os.environ.get('JUNTAGRICO_EMAIL_PORT', '25' ))
 EMAIL_USE_TLS = os.environ.get('JUNTAGRICO_EMAIL_TLS', 'False')=='True'
 EMAIL_USE_SSL = os.environ.get('JUNTAGRICO_EMAIL_SSL', 'False')=='True'
-
-SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
 
 WHITELIST_EMAILS = []
 
@@ -161,6 +165,11 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
      Import Export Settings
 """
 IMPORT_EXPORT_EXPORT_PERMISSION_CODE = 'view'
+
+"""
+     Richtext Settings
+"""
+DJRICHTEXTFIELD_CONFIG = defaults.richtextfield_config(LANGUAGE_CODE)
 
 """
      juntagrico Settings
